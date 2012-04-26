@@ -31,7 +31,7 @@ class ReservationSystem
 
         bool validate_names(string);      // ARE NAMES VALID?
         bool validate_telephone();  //IS THE PHONE VALID?
-        bool validate_credit_c();   //IS THE CC # VALID.
+        bool validate_credit_c(string);   //IS THE CC # VALID.
 
 /////////////////////////////////////////////////////////////
 ////////////////////// FETCH DATA ///////////////////////////
