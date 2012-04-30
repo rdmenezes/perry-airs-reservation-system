@@ -1,43 +1,51 @@
-#include "reservationsystem.h"
+#ifndef RESERVATIONSYSTEM_H
+#define RESERVATIONSYSTEM_H
 
-ReservationSystem::ReservationSystem()
+#include <iostream>
+#include <cctype>
+#include <string>
+
+using namespace std;
+
+class ReservationSystem
 {
-    //ctor
-}
+    public:
 
-ReservationSystem::~ReservationSystem()
-{
-    //dtor
-}
+        ReservationSystem();   //CONSTRUCTOR
+       ~ReservationSystem();   //DESTRUCTOR
 
-// Iterate through the string,return false if a non-alphabeical letter
-// is encountered, other wise , end loop and return true.
-bool ReservationSystem::validate_names(string name)
-{
-     for(unsigned int i=0; i<name.length(); i++)
-    {
-        if(!('a'<=name[i] && name[i] <='z'))
-            return false;
-    }
-      return true;
-}
+//////////////////////////////////////////////////////////////
+////////////////////// SET DATA //////////////////////////////
 
-// Credit card numbers have 16 digits
-// if is less than or greater than 16 , return false.
-// if 16 characters ,iterate through the string
-// return false if a non-numerical number
-// is encountered, other wise , end loop and return true.
-bool ReservationSystem::validate_credit_c(string credit)
-{
-    if(credit.length() != 16)
-    {
-        return false;
-    }
+        void makeReservation(); //FINAL RESERVATION STEP.
+        void set_name();        //SET FIRST NAME.
+        void set_lname();       //SET LAST NAME
+        void selectDCity();     //SET DESTINATION CITY.
+        void selectTime();      //SELECT DEPARTURE TIME.
+        void changeDate();      //SELECT DATE.
+        void changeTime();      //SELECT TIME
+        void confNumber();      //GENERATE CONFIRMATION NUMBER
 
-     for(unsigned int i=0; i<credit.length(); i++)
-    {
-        if(!('0'<=credit[i] && credit[i] <='9'))
-            return false;
-    }
-      return true;
-}
+//////////////////////////////////////////////////////////////
+////////////////////// VALIDATIONS ///////////////////////////
+
+        bool validate_names(string);      // ARE NAMES VALID?
+        bool validate_telephone(string);  //IS THE PHONE VALID?
+        bool validate_credit_c(string);   //IS THE CC # VALID.
+
+/////////////////////////////////////////////////////////////
+////////////////////// FETCH DATA ///////////////////////////
+
+        string get_firstName();     //FETCH FIRST NAME.
+        string get_lastName();      //FETCH LAST NAME.
+        string get_telnumber();     //FETCH TEL.#.
+
+    private:
+
+        string firstName;           //CUSTOMERS NAME.
+        string lastName;            //CUSTOMERS LAST NAME.
+        string phoneNumber;          //CUSTOMER PHONE #.
+        string reservation_number;  //RE #.
+};
+
+#endif // RESERVATIONSYSTEM_H
