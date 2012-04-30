@@ -1,51 +1,127 @@
-#ifndef RESERVATIONSYSTEM_H
-#define RESERVATIONSYSTEM_H
+#include "reservationsystem.h"
 
-#include <iostream>
-#include <cctype>
-#include <string>
-
-using namespace std;
-
-class ReservationSystem
+ReservationSystem::ReservationSystem()
 {
-    public:
+    //ctor
+}
 
-        ReservationSystem();   //CONSTRUCTOR
-       ~ReservationSystem();   //DESTRUCTOR
+ReservationSystem::~ReservationSystem()
+{
+    //dtor
+}
 
-//////////////////////////////////////////////////////////////
-////////////////////// SET DATA //////////////////////////////
-
-        void makeReservation(); //FINAL RESERVATION STEP.
-        void set_name();        //SET FIRST NAME.
-        void set_lname();       //SET LAST NAME
-        void selectDCity();     //SET DESTINATION CITY.
-        void selectTime();      //SELECT DEPARTURE TIME.
-        void changeDate();      //SELECT DATE.
-        void changeTime();      //SELECT TIME
-        void confNumber();      //GENERATE CONFIRMATION NUMBER
 
 //////////////////////////////////////////////////////////////
 ////////////////////// VALIDATIONS ///////////////////////////
+// Iterate through the string,return false if a non-alphabeical letter
+// is encountered, other wise , end loop and return true.
+bool ReservationSystem::validate_names(string name)
+{
+     for(unsigned int i=0; i<name.length(); i++)
+    {
+        if(!('a'<=name[i] && name[i] <='z'))
+            return false;
+    }
 
-        bool validate_names(string);      // ARE NAMES VALID?
-        bool validate_telephone(string);  //IS THE PHONE VALID?
-        bool validate_credit_c(string);   //IS THE CC # VALID.
+      return true;
+}
+
+// Credit card numbers have 16 digits
+// if is less than or greater than 16 , return false.
+// if 16 characters ,iterate through the string
+// return false if a non-numerical number
+// is encountered, other wise , end loop and return true.
+bool ReservationSystem::validate_credit_c(string credit)
+{
+    if(credit.length() != 16)
+    {
+        return false;
+    }
+
+     for(unsigned int i=0; i<credit.length(); i++)
+    {
+        if(!('0'<=credit[i] && credit[i] <='9'))
+            return false;
+    }
+      return true;
+}
+
+
+bool ReservationSystem::validate_telephone(string phone)
+{
+    if(phone.length() != 16)
+    {
+        return false;
+    }
+
+     for(unsigned int i=0; i<phone.length(); i++)
+    {
+        if(!('0'<=phone[i] && phone[i] <='9'))
+            return false;
+
+    }
+
+      return true;
+
+}
 
 /////////////////////////////////////////////////////////////
 ////////////////////// FETCH DATA ///////////////////////////
 
-        string get_firstName();     //FETCH FIRST NAME.
-        string get_lastName();      //FETCH LAST NAME.
-        string get_telnumber();     //FETCH TEL.#.
+string ReservationSystem::get_firstName()     //FETCH FIRST NAME.
+{
+    return firstName;
+}
+string ReservationSystem::get_lastName()     //FETCH LAST NAME.
+{
+    return lastName;
+}
+string ReservationSystem::get_telnumber()     //FETCH TEL.#.
+{
+    return phoneNumber;
+}
 
-    private:
 
-        string firstName;           //CUSTOMERS NAME.
-        string lastName;            //CUSTOMERS LAST NAME.
-        string phoneNumber;          //CUSTOMER PHONE #.
-        string reservation_number;  //RE #.
-};
+//////////////////////////////////////////////////////////////
+////////////////////// SET DATA //////////////////////////////
 
-#endif // RESERVATIONSYSTEM_H
+
+void ReservationSystem::set_name()        //SET FIRST NAME.
+{
+    string name;
+    cout << "Enter F.Name: ";
+    getline(cin,name);
+
+    while(validate_names(name) == false)
+    {
+     cout << "Invalid...";
+     cout << "\nEnter F.Name: ";
+     getline(cin,name);
+    }
+
+    firstName = name;
+}
+void ReservationSystem::set_lname()      //SET LAST NAME
+{
+    string name;
+    cout << "Enter L.Name: ";
+    getline(cin,name);
+
+    while(validate_names(name) == false)
+    {
+     cout << "Invalid...";
+     cout << "\nEnter L.Name: ";
+     getline(cin,name);
+    }
+
+    lastName = name;
+}
+
+/*
+void ReservationSystem::makeReservation() //FINAL RESERVATION STEP.
+void ReservationSystem::selectDCity()     //SET DESTINATION CITY.
+void ReservationSystem::selectTime()     //SELECT DEPARTURE TIME.
+void ReservationSystem::changeDate()      //SELECT DATE.
+void ReservationSystem::changeTime()      //SELECT TIME
+
+*/
