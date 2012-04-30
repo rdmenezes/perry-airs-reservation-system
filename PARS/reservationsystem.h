@@ -30,7 +30,7 @@ class ReservationSystem
 ////////////////////// VALIDATIONS ///////////////////////////
 
         bool validate_names(string);      // ARE NAMES VALID?
-        bool validate_telephone();  //IS THE PHONE VALID?
+        bool validate_telephone(string);  //IS THE PHONE VALID?
         bool validate_credit_c(string);   //IS THE CC # VALID.
 
 /////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ class ReservationSystem
 
         string firstName;           //CUSTOMERS NAME.
         string lastName;            //CUSTOMERS LAST NAME.
-        string phoneNumer;          //CUSTOMER PHONE #.
+        string phoneNumber;          //CUSTOMER PHONE #.
         string reservation_number;  //RE #.
 };
 
