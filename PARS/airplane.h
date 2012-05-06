@@ -1,18 +1,20 @@
 #ifndef AIRPLANE_H
 #define AIRPLANE_H
-
+#include "passenger.h"
+#include <vector>
 class Airplane
 {
     public:
         Airplane();            // Default Constructor
         virtual ~Airplane();   // Destructor
         void assign_seat();    // passenger numbers starts from 00
-        bool airplane_limit(); // 30 passenters per plane
         void add_passenger();  // try to add passengers
-        int get_max_passengers();
+        //int get_max_passengers();
+        void display_list();
+
     private:
-//    vector<Passenger> passengers;
-    int max_passengers;
+    vector<Passenger> passengers; // an array of passengers
+    int max_passengers;        //as a passenger is assigned, increment this var.
 };
 
 #endif // AIRPLANE_H
