@@ -1,172 +1,68 @@
-#include "Passenger.h"
+#ifndef PASSENGER_H
+#define PASSENGER_H
 
-Passenger::Passenger()
+#include <iostream>
+#include <cstdlib> // to clear screen
+#include <cctype>
+#include <string>
+
+using namespace std;
+
+class Passenger
 {
-    //ctor
-}
+    public:
 
-Passenger::~Passenger()
-{
-    //dtor
-}
-
-
-//////////////////////////////////////////////////////////////
-////////////////////// VALIDATIONS ///////////////////////////
-// Iterate through the string,return false if a non-alphabeical letter
-// is encountered, other wise , end loop and return true.
-bool Passenger::validate_names(string name)
-{
-     for(unsigned int i=0; i<name.length(); i++)
-    {
-        if(!('a'<=name[i] && name[i] <='z'))
-            return false;
-    }
-
-      return true;
-}
-
-// Credit card numbers have 16 digits
-// if is less than or greater than 16 , return false.
-// if 16 characters ,iterate through the string
-// return false if a non-numerical number
-// is encountered, other wise , end loop and return true.
-bool Passenger::validate_credit_c(string credit)
-{
-    if(credit.length() != 16)
-    {
-        return false;
-    }
-
-     for(unsigned int i=0; i<credit.length(); i++)
-    {
-        if(!('0'<=credit[i] && credit[i] <='9'))
-            return false;
-    }
-      return true;
-}
-
-
-bool Passenger::validate_telephone(string phone)
-{
-    if(phone.length() != 16)
-    {
-        return false;
-    }
-
-     for(unsigned int i=0; i<phone.length(); i++)
-    {
-        if(!('0'<=phone[i] && phone[i] <='9'))
-            return false;
-
-    }
-
-      return true;
-
-}
-
-/////////////////////////////////////////////////////////////
-////////////////////// FETCH DATA ///////////////////////////
-
-string Passenger::get_firstName()     //FETCH FIRST NAME.
-{
-    return firstName;
-}
-string Passenger::get_lastName()     //FETCH LAST NAME.
-{
-    return lastName;
-}
-string Passenger::get_telnumber()     //FETCH TEL.#.
-{
-    return phoneNumber;
-}
-
+        Passenger();   //CONSTRUCTOR
+       ~Passenger();   //DESTRUCTOR
 
 //////////////////////////////////////////////////////////////
 ////////////////////// SET DATA //////////////////////////////
 
+        void make_Reservation(); //FINAL RESERVATION STEP.
+        void set_Name();        //SET FIRST NAME.
+        void set_Lname();       //SET LAST NAME
+        void select_City();     //SET DESTINATION CITY.
+        void select_Time();      //SELECT DEPARTURE TIME.
+        void select_Date();      //SELECT DATE.
+        //void confirmation_Number();      //GENERATE CONFIRMATION NUMBER FROM 000000
+        void telephone_Number(string);
+        void phone_Format();    //Build (###)###-####
 
-void Passenger::set_Name()        //SET FIRST NAME.
-{
-    string name;
-    cout << "Enter F.Name: ";
-    getline(cin,name);
+//////////////////////////////////////////////////////////////
+////////////////////// VALIDATIONS ///////////////////////////
 
-    while(validate_names(name) == false)
-    {
-     cout << "Invalid...";
-     cout << "\nEnter F.Name: ";
-     getline(cin,name);
-    }
+        bool validate_names(string);      // ARE NAMES VALID?
+        bool validate_telephone(string);  //IS THE PHONE VALID?
+        bool validate_credit_c(string);   //IS THE CC # VALID. IS 6 DIGITS
 
-    firstName = name;
-}
-void Passenger::set_Lname()      //SET LAST NAME
-{
-    string name;
-    cout << "Enter L.Name: ";
-    getline(cin,name);
+/////////////////////////////////////////////////////////////
+////////////////////// FETCH DATA ///////////////////////////
 
-    while(validate_names(name) == false)
-    {
-     cout << "Invalid...";
-     cout << "\nEnter L.Name: ";
-     getline(cin,name);
-    }
+        string get_firstName();     //FETCH FIRST NAME.
+        string get_lastName();      //FETCH LAST NAME.
+        string get_telnumber();     //FETCH TEL.#.
 
-    lastName = name;
-}
+/////////////////////////////////////////////////////////////
+////////////////////// OVERLOADING //////////////////////////
 
-void Passenger::phone_Format(string tel)
-{
+    friend ostream &operator<<(ostream &stream, Passenger o);
+    friend istream &operator>>(istream &stream, Passenger &o);
 
-    char *phone;
-    phone = new char[10];
 
-    for(int i = 0; i < 10; i++)
-        {
-            if(i==0)
-                //cout << "(";
-                phone[0] = '(';
-            if(i==3)
-                //cout << ")";
-                phone[0] = ')';
-            if(i == 6)
-                //cout << "-";
-                phone[6] = '-';
+    private:
 
-            phone[i+1] = tel[i];
-        }
+        string firstName;           //CUSTOMERS NAME.
+        string lastName;            //CUSTOMERS LAST NAME.
+        string phoneNumber;         //CUSTOMER PHONE #.
+        string reservation_number;  //RE #. MUST BE 6 DIGITS IN LENGTH
+        bool sel_City;              // THERE ARE 2 CITIES
+        bool sel_Time;             // FROM SFO @ 6AM AND FROM LAS @ 10PM
+        bool sel_Date;             // SELECT DATE
+        bool how_bags;             // 0 OR 1 BAG.
+        bool age;                  // age requirements
+        bool assist;               // disability assitance
 
-        delete[] phone;
 
-}
-/*
-void Passenger::makeReservation() //FINAL RESERVATION STEP.
-void Passenger::selectDCity()     //SET DESTINATION CITY.
-void Passenger::selectTime()     //SELECT DEPARTURE TIME.
-void Passenger::changeDate()      //SELECT DATE.
-void Passenger::changeTime()      //SELECT TIME
+};
 
-*/
-
-ostream &operator<<(ostream &stream, Passenger o)
-{
-  stream << o.lastName;
-  stream << "," << o.firstName;
-  stream << "/nTel#:";
-
-  return stream; // must return stream
-}
-
-// Input name and telephone valueber.
-istream &operator>>(istream &stream, Passenger &o)
-{
-  cout << "Enter F.Name: ";
-  stream >> o.firstName;
-  cout << "Enter L.Name ";
-  stream >> o.lastName;
-  cout << "\n";
-
-  return stream;
-}
+#endif // PASSENGER_H
